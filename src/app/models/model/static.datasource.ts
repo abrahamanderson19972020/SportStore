@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Product } from './product.model';
 import { Observable, from } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class StaticDataSource {
+  categories: string[] = [];
   private products: Product[] = [
     new Product(1, 'Product 1', 'Category 1', 'Product 1 (Category 1)', 100),
     new Product(2, 'Product 2', 'Category 1', 'Product 2 (Category 1)', 100),
@@ -33,5 +32,14 @@ export class StaticDataSource {
   }
   getProductByCategory(categoryName: string): Product[] {
     return this.products.filter((p) => p.category === categoryName);
+  }
+  getAllCategories(): string[] {
+    this.products.forEach((p) => {
+      var result = this.categories.find((c) => c === p.category);
+      if (!result) {
+        this.categories.push(p.category!);
+      }
+    });
+    return this.categories;
   }
 }

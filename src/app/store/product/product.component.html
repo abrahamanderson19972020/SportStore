@@ -1,6 +1,16 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-4">Categories</div>
-    <div class="col-8">{{ products | json }}</div>
+    <div class="col-3 bg-info text-white p-2">
+      <ul *ngFor="let category of categories">
+        <li>
+          {{ category }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-9 bg-success p-2">
+      <ul *ngFor="let product of products">
+        <li>{{ product.name }}</li>
+      </ul>
+    </div>
   </div>
 </div>

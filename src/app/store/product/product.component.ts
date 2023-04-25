@@ -9,10 +9,13 @@ import { StaticDataSource } from 'src/app/models/model/static.datasource';
 })
 export class ProductComponent implements OnInit {
   products: Product[] = [];
+  categories: string[] = [];
   constructor(private dataService: StaticDataSource) {}
   ngOnInit(): void {
     this.dataService.getProducts().subscribe((res) => {
       this.products = res;
     });
+    this.categories = this.dataService.getAllCategories();
+    console.log(this.categories);
   }
 }
