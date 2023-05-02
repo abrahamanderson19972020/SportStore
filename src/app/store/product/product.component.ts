@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Cart } from 'src/app/models/model/cart.model';
 import { Product } from 'src/app/models/model/product.model';
 import { StaticDataSource } from 'src/app/models/model/static.datasource';
 
@@ -14,7 +16,11 @@ export class ProductComponent implements OnInit {
   products: Product[] = [];
   allProducts: Product[] = [];
   categories: string[] = [];
-  constructor(private dataService: StaticDataSource) {}
+  constructor(
+    private dataService: StaticDataSource,
+    private cart: Cart,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.dataService.getProducts().subscribe((res) => {
       this.allProducts = res;
@@ -42,5 +48,8 @@ export class ProductComponent implements OnInit {
     return Array(Math.ceil(this.products?.length / this.productsPerPage))
       .fill(0)
       .map((x, i) => i + 1);
+  }
+  addProductToCart(product: Product) {
+    this.cart.addLine(product);
   }
 }
